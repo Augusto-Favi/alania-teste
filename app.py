@@ -24,15 +24,17 @@ if "history" not in st.session_state:
     
 logo = Image.open(f'{st.session_state.current_path}/images/logo.png')
 
+def random_key_gen():
+    return f"{hashlib.sha256(('unique-key-'+str(random.random())).encode()).hexdigest()}-{datetime.now()}"
+
+def conversational_bot(user_message):   
+     return "ainda to burra calma"
+
 def generate_answer():
     user_message = st.session_state.input_text
     st.session_state.input_text = ""
 
-    response, sources = st.session_state.conversational_bot.inference(user_message, st.session_state.session_unique_key)
-
-    st.session_state.pdf_source = sources[0].replace("data_src", "../Base-Conhecimento").replace(".md", ".pdf")
-    print('pdf_source: ', st.session_state.pdf_source)
-
+    response = conversational_bot(user_message)
 
     st.session_state.history.append({"message": user_message, "is_user": True})
     st.session_state.history.append({"message": response, "is_user": False})
@@ -45,7 +47,7 @@ def gpt3_app():
     st.title("AlanIA")
     
     for chat in st.session_state.history:
-        st_message(**chat)  # unpacking
+        st_message(**chat, key=random_key_gen())  # unpacking
     
     st.text_input("Fale com o robo", key="input_text", on_change=generate_answer)
 
