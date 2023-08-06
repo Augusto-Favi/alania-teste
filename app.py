@@ -1,7 +1,5 @@
-from langchain.embeddings import OpenAIEmbeddings
 import streamlit as st
-import os
-from PIL import Image
+# from PIL import Image
 import streamlit.components.v1 as components
 from streamlit_chat import message as st_message
 from datetime import datetime
@@ -16,12 +14,10 @@ st.set_page_config(
 
 if "session_unique_key" not in st.session_state:
     st.session_state.session_unique_key = f"{hashlib.sha256(('unique-key-'+str(random.random())).encode()).hexdigest()}-{datetime.now()}"
-if "current_path" not in st.session_state:
-    st.session_state.current_path = os.path.realpath(os.path.dirname(__file__))
 if "history" not in st.session_state:
     st.session_state.history = []
     
-logo = Image.open(f'{st.session_state.current_path}/images/logo.png')
+# logo = Image.open('./images/logo.png')
 
 def random_key_gen():
     return f"{hashlib.sha256(('unique-key-'+str(random.random())).encode()).hexdigest()}-{datetime.now()}"
@@ -69,6 +65,5 @@ def gpt3_app():
         """,
         height=0
     )
-
 
 gpt3_app()
