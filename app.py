@@ -7,7 +7,6 @@ from streamlit_chat import message as st_message
 from datetime import datetime
 import hashlib
 import random
-import base64
 import time
 
 st.set_page_config(
